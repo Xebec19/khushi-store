@@ -1,7 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "@next/font/google";
-const inter = Inter({ subsets: ["latin"] });
+import { AppBar, Box, Typography } from "@mui/material";
 
 export default function Home() {
   return (
@@ -13,7 +12,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Hello world!</h1>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static">
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              News
+            </Typography>
+          </AppBar>
+        </Box>
       </main>
     </>
   );
