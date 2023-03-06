@@ -1,0 +1,40 @@
+.title {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form {
+  max-width: 345px;
+  margin: auto;
+  text-align: center;
+  margin-top: 2rem;
+  padding: 10px;
+}
+
+.formInput {
+  margin-bottom: 10px;
+}
+
+.actionButton {
+  display: flex;
+  flex-direction: row;
+}
+
+.socialLoginWrapper {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.socialIconList {
+  text-align: center;
+}
+
+.socialIcon {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}

@@ -2,9 +2,10 @@ import Head from "next/head";
 import { Box } from "@mui/material";
 import NavigationUI from "@/components/UI/NavigationUI";
 import { SearchUI } from "@/components/UI/SearchUI";
-import ProductCard from "@/components/UI/Product/ProductCard";
-import classes from "../styles/Home.module.css";
-import ProductList from "@/components/UI/Product/ProductList";
+import ProductCard from "@/components/Product/ProductCard";
+import classes from "../styles/home.module.css";
+import ProductList from "@/components/Product/ProductList";
+import Layout from "@/components/UI/Layout";
 
 export default function Home() {
   return (
@@ -16,19 +17,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Box sx={{ flexGrow: 1 }}>
-          <SearchUI />
-          <main>
-            <ProductList>
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-            </ProductList>
-          </main>
-          <NavigationUI />
-        </Box>
+        <SearchUI />
+        <Layout>
+          <ProductList>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </ProductList>
+        </Layout>
+        <NavigationUI />
       </main>
     </>
   );
