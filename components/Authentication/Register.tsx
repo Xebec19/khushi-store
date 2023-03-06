@@ -38,6 +38,20 @@ const Register = () => {
         />
         <CardContent>
           <TextField
+            id="firstname"
+            fullWidth
+            label="First Name"
+            variant="outlined"
+            className={classes.formInput}
+          />
+          <TextField
+            id="lastname"
+            fullWidth
+            label="Last Name"
+            variant="outlined"
+            className={classes.formInput}
+          />
+          <TextField
             id="email"
             fullWidth
             label="Email"
