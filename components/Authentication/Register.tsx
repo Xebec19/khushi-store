@@ -34,7 +34,6 @@ const Register = () => {
               R
             </Avatar>
           }
-          subheader="Create new account"
         />
         <CardContent>
           <TextField

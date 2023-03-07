@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import classes from "../../styles/UI.module.css";
+import classes from "../../styles/ui.module.css";
 
 const top100Films = [
   { label: "The Shawshank Redemption", year: 1994 },

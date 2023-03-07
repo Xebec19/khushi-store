@@ -16,8 +16,8 @@ export default function Profile() {
       </Head>
       <Layout>
         {/* <Register /> */}
-        {/* <Login /> */}
-        <Dashboard />
+        <Login />
+        {/* <Dashboard /> */}
       </Layout>
       <NavigationUI />
     </>

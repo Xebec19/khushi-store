@@ -27,15 +27,7 @@ const Login = () => {
         Khushi Store
       </Typography>
       <Card className={classes.form}>
-        <CardHeader
-          title="Login"
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-          }
-          subheader="Enter your credentials"
-        />
+        <CardHeader title="Login" subheader="Enter your credentials" />
         <CardContent>
           <TextField
             id="email"
