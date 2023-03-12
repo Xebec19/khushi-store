@@ -11,6 +11,7 @@ import { getServerState } from "react-instantsearch-hooks-server";
 import { history } from "instantsearch.js/es/lib/routers/index.js";
 import singletonRouter from "next/router";
 import { createInstantSearchRouterNext } from "react-instantsearch-hooks-router-nextjs";
+import NavigationUI from "@/components/UI/NavigationUI";
 
 const searchClient = algoliasearch(
   "QXZP1BIGWI",
@@ -33,18 +34,24 @@ function Hit({ hit }) {
 
 export default function SearchPage({ serverState, serverUrl }) {
   return (
-    <InstantSearchSSRProvider {...serverState}>
-      <InstantSearch
-        searchClient={searchClient}
-        indexName="bazaar_index"
-        routing={{
-          router: createInstantSearchRouterNext({ singletonRouter, serverUrl }),
-        }}
-      >
-        <SearchBox />
-        <Hits hitComponent={Hit} />
-      </InstantSearch>
-    </InstantSearchSSRProvider>
+    <>
+      <InstantSearchSSRProvider {...serverState}>
+        <InstantSearch
+          searchClient={searchClient}
+          indexName="bazaar_index"
+          routing={{
+            router: createInstantSearchRouterNext({
+              singletonRouter,
+              serverUrl,
+            }),
+          }}
+        >
+          <SearchBox />
+          <Hits hitComponent={Hit} />
+        </InstantSearch>
+      </InstantSearchSSRProvider>
+      <NavigationUI />
+    </>
   );
 }
 

@@ -19,6 +19,7 @@
     "@types/react-dom": "18.0.10",
     "add": "^2.0.6",
     "algoliasearch": "^4.15.0",
+    "axios": "^1.3.4",
     "dotenv-vault": "^1.18.0",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",

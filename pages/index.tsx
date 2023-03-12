@@ -1,7 +1,8 @@
+import Categories from "@/components/Product/Categories";
 import HeaderUI from "@/components/UI/HeaderUI";
 import HeroUI from "@/components/UI/HeroUI";
 import Layout from "@/components/UI/Layout";
-import Navigation from "@/components/UI/NavigationUI";
+import NavigationUI from "@/components/UI/NavigationUI";
 import Head from "next/head";
 
 function Home() {
@@ -18,8 +19,9 @@ function Home() {
       <HeaderUI />
       <Layout>
         <HeroUI />
+        <Categories />
       </Layout>
-      <Navigation />
+      <NavigationUI />
     </>
   );
 }

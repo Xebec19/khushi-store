@@ -8,12 +8,15 @@ import { useState, useCallback, useEffect } from "react";
  */
 const useMediaQuery = (width: any) => {
   const [targetReached, setTargetReached] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const updateTarget = useCallback((e: { matches: any }) => {
     if (e.matches) {
       setTargetReached(true);
+      setLoading(false);
     } else {
       setTargetReached(false);
+      setLoading(false);
     }
   }, []);
 
@@ -23,12 +26,15 @@ const useMediaQuery = (width: any) => {
 
     if (media.matches) {
       setTargetReached(true);
+      setLoading(false);
     }
+
+    setLoading(false);
 
     return () => media.removeListener(updateTarget);
   }, []);
 
-  return targetReached;
+  return { targetReached, loading };
 };
 
 export default useMediaQuery;
