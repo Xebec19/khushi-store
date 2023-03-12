@@ -1,65 +1,24 @@
-import { renderToString } from "react-dom/server";
-import algoliasearch from "algoliasearch/lite";
-import {
-  Highlight,
-  Hits,
-  InstantSearch,
-  InstantSearchSSRProvider,
-  SearchBox,
-} from "react-instantsearch-hooks-web";
-import { getServerState } from "react-instantsearch-hooks-server";
-import { history } from "instantsearch.js/es/lib/routers/index.js";
-import singletonRouter from "next/router";
-import { createInstantSearchRouterNext } from "react-instantsearch-hooks-router-nextjs";
+import HeaderUI from "@/components/UI/HeaderUI";
+import Layout from "@/components/UI/Layout";
+import Navigation from "@/components/UI/NavigationUI";
+import Head from "next/head";
 
-const searchClient = algoliasearch(
-  "QXZP1BIGWI",
-  "eee6e7a810e9bfc9c8c8e9643820170f"
-);
-
-function Hit({ hit }) {
+function Home() {
   return (
-    <article>
-      <img src={hit.image} alt={hit.product_name} />
-      <p>{hit.category_name}</p>
-      <p>{hit.product_name}</p>
-      <h1>
-        <Highlight attribute="name" hit={hit} />
-      </h1>
-      <p>${hit.price}</p>
-    </article>
+    <>
+      <Head>
+        <title>Khushi Store</title>
+        <meta
+          name="description"
+          content="Discover the latest fashion trends at our online clothing store! Browse our extensive collection of high-quality clothes, ranging from casual to formal wear, for men, women, and children. Enjoy fast and free shipping on all orders, and take advantage of our hassle-free returns policy. Shop now and upgrade your wardrobe with stylish and affordable clothing!"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <HeaderUI />
+      <Layout></Layout>
+      <Navigation />
+    </>
   );
 }
 
-export default function SearchPage({ serverState, serverUrl }) {
-  return (
-    <InstantSearchSSRProvider {...serverState}>
-      <InstantSearch
-        searchClient={searchClient}
-        indexName="bazaar_index"
-        routing={{
-          router: createInstantSearchRouterNext({ singletonRouter, serverUrl }),
-        }}
-      >
-        <SearchBox />
-        <Hits hitComponent={Hit} />
-      </InstantSearch>
-    </InstantSearchSSRProvider>
-  );
-}
-
-export async function getServerSideProps({ req }) {
-  const protocol = req.headers.referer?.split("://")[0] || "https";
-  const serverUrl = `${protocol}://${req.headers.host}${req.url}`;
-  const serverState = await getServerState(
-    <SearchPage serverUrl={serverUrl} />,
-    { renderToString }
-  );
-
-  return {
-    props: {
-      serverState,
-      serverUrl,
-    },
-  };
-}
+export default Home;
