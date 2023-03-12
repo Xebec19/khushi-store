@@ -32,3 +32,40 @@
 .layout {
   margin-bottom: 5rem;
 }
+
+.headerWrapper {
+  margin: auto;
+}
+
+.header {
+  max-width: 1280px;
+  justify-content: space-between;
+  color: white;
+  margin: auto;
+  width: 100%;
+}
+
+.whiteIcon {
+  color: white;
+}
+
+.desktopIcon {
+  display: none;
+}
+
+.iconWrapper {
+  display: flex;
+}
+
+.mobileIcon {
+  display: block;
+}
+
+/*
+* style override for desktop
+*/
+@media only screen and (min-width: 600px) {
+  .desktopIcon {
+    display: block;
+  }
+}

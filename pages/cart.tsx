@@ -1,3 +1,4 @@
+import Navigation from "@/components/UI/NavigationUI";
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import classes from "../styles/cart.module.css";
@@ -23,6 +24,7 @@ const Cart = () => {
           </Stack>
         </CardContent>
       </Card>
+      <Navigation />
     </div>
   );
 };
