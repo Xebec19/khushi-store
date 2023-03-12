@@ -1,4 +1,5 @@
 import HeaderUI from "@/components/UI/HeaderUI";
+import HeroUI from "@/components/UI/HeroUI";
 import Layout from "@/components/UI/Layout";
 import Navigation from "@/components/UI/NavigationUI";
 import Head from "next/head";
@@ -15,7 +16,9 @@ function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <HeaderUI />
-      <Layout></Layout>
+      <Layout>
+        <HeroUI />
+      </Layout>
       <Navigation />
     </>
   );
