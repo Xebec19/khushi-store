@@ -30,6 +30,7 @@
 }
 
 .layout {
+  margin-top: 4rem;
   margin-bottom: 5rem;
 }
 
@@ -61,11 +62,37 @@
   display: block;
 }
 
+.heroLoader {
+  margin: 1rem;
+  text-align: center;
+}
+
+.footer {
+  display: none;
+}
+
 /*
 * style override for desktop
 */
 @media only screen and (min-width: 600px) {
   .desktopIcon {
     display: block;
+  }
+
+  .navBar {
+    display: none;
+  }
+
+  .heroContainer {
+    max-width: 1280px;
+    margin: auto;
+  }
+
+  .footer {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: #1976d2;
+    color: white;
   }
 }
