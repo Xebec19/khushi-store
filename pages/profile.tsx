@@ -1,7 +1,7 @@
 import Head from "next/head";
 import NavigationUI from "@/components/UI/NavigationUI";
 import Register from "@/components/Authentication/Register";
-import Layout from "@/components/UI/Layout";
+import Layout from "@/components/UI/LayoutUI";
 import Login from "@/components/Authentication/Login";
 import Dashboard from "@/components/User/Dashboard";
 

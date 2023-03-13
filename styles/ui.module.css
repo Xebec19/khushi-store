@@ -67,6 +67,10 @@
   text-align: center;
 }
 
+.footer {
+  display: none;
+}
+
 /*
 * style override for desktop
 */
@@ -82,5 +86,13 @@
   .heroContainer {
     max-width: 1280px;
     margin: auto;
+  }
+
+  .footer {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: #1976d2;
+    color: white;
   }
 }

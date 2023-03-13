@@ -5,13 +5,22 @@ import {
   Hits,
   InstantSearch,
   InstantSearchSSRProvider,
+  RefinementList,
+  HierarchicalMenu,
+  DynamicWidgets,
   SearchBox,
+  useSearchBox,
 } from "react-instantsearch-hooks-web";
 import { getServerState } from "react-instantsearch-hooks-server";
 import { history } from "instantsearch.js/es/lib/routers/index.js";
 import singletonRouter from "next/router";
 import { createInstantSearchRouterNext } from "react-instantsearch-hooks-router-nextjs";
 import NavigationUI from "@/components/UI/NavigationUI";
+import { Grid } from "@mui/material";
+import HeaderUI from "@/components/UI/HeaderUI";
+import Layout from "@/components/UI/LayoutUI";
+import LayoutUI from "@/components/UI/LayoutUI";
+import Footer from "@/components/UI/Footer";
 
 const searchClient = algoliasearch(
   "QXZP1BIGWI",
@@ -32,6 +41,13 @@ function Hit({ hit }) {
   );
 }
 
+const transformItems = (items: any[]) => {
+  return items.map((item) => ({
+    ...item,
+    label: item.label.toUpperCase(),
+  }));
+};
+
 export default function SearchPage({ serverState, serverUrl }) {
   return (
     <>
@@ -46,11 +62,34 @@ export default function SearchPage({ serverState, serverUrl }) {
             }),
           }}
         >
-          <SearchBox />
-          <Hits hitComponent={Hit} />
+          <HeaderUI />
+          <LayoutUI>
+            <Grid container spacing={2}>
+              <Grid item md={12}>
+                <SearchBox />
+              </Grid>
+              <Grid item md={4} xs={12}>
+                <DynamicWidgets>
+                  <HierarchicalMenu
+                    attributes={["hierarchical.lvl0", "hierarchical.lvl1"]}
+                  />
+                  <RefinementList
+                    attribute="category_name"
+                    searchable={true}
+                    searchablePlaceholder="Search categories"
+                    transformItems={transformItems}
+                  />
+                </DynamicWidgets>
+              </Grid>
+              <Grid item md={8} xs={12}>
+                <Hits hitComponent={Hit} />
+              </Grid>
+            </Grid>
+          </LayoutUI>
         </InstantSearch>
       </InstantSearchSSRProvider>
       <NavigationUI />
+      <Footer />
     </>
   );
 }

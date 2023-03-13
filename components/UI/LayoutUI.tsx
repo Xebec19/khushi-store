@@ -1,7 +1,7 @@
 import classes from "../../styles/ui.module.css";
 
-const Layout = ({ children }) => {
+const LayoutUI = ({ children }) => {
   return <main className={classes.layout}>{children}</main>;
 };
 
-export default Layout;
+export default LayoutUI;

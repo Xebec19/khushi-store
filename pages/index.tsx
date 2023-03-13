@@ -1,7 +1,8 @@
 import Categories from "@/components/Product/Categories";
+import Footer from "@/components/UI/Footer";
 import HeaderUI from "@/components/UI/HeaderUI";
 import HeroUI from "@/components/UI/HeroUI";
-import Layout from "@/components/UI/Layout";
+import Layout from "@/components/UI/LayoutUI";
 import NavigationUI from "@/components/UI/NavigationUI";
 import Head from "next/head";
 
@@ -22,6 +23,7 @@ function Home() {
         <Categories />
       </Layout>
       <NavigationUI />
+      <Footer />
     </>
   );
 }

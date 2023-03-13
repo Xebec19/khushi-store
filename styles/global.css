@@ -25,3 +25,8 @@ img {
   max-width: 100%;
   display: block;
 }
+
+.ais-SearchBox-form {
+  text-align: center;
+  margin: 2rem;
+}
