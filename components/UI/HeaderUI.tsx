@@ -4,8 +4,11 @@ import Link from "next/link";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import classes from "../../styles/ui.module.css";
+import { usePathname } from "next/navigation";
 
 const HeaderUI = () => {
+  const pathName = usePathname();
+
   return (
     <AppBar className={classes.headerWrapper}>
       <Toolbar className={classes.header}>
@@ -14,11 +17,13 @@ const HeaderUI = () => {
         </Typography>
 
         <span className={classes.iconWrapper}>
-          <Link href="/search">
-            <IconButton className={classes.mobileIcon}>
-              <SearchIcon className={classes.whiteIcon} />
-            </IconButton>
-          </Link>
+          {!pathName?.includes("search") && (
+            <Link href="/search">
+              <IconButton className={classes.mobileIcon}>
+                <SearchIcon className={classes.whiteIcon} />
+              </IconButton>
+            </Link>
+          )}
 
           <Link href="/cart">
             <IconButton className={classes.desktopIcon}>
