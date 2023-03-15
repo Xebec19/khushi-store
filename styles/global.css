@@ -28,5 +28,18 @@ img {
 
 .ais-SearchBox-form {
   text-align: center;
-  margin: 2rem;
+}
+
+.ais-SearchBox-input {
+  padding: 0.8rem;
+  margin-right: 1rem;
+}
+
+.ais-RefinementList-list {
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.ais-Hits-list {
+  list-style-type: none;
 }

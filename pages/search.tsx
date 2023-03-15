@@ -1,3 +1,4 @@
+import React from "react";
 import { renderToString } from "react-dom/server";
 import algoliasearch from "algoliasearch/lite";
 import {
@@ -10,17 +11,31 @@ import {
   DynamicWidgets,
   SearchBox,
   useSearchBox,
+  Configure,
 } from "react-instantsearch-hooks-web";
+import SearchIcon from "@mui/icons-material/Search";
 import { getServerState } from "react-instantsearch-hooks-server";
 import { history } from "instantsearch.js/es/lib/routers/index.js";
 import singletonRouter from "next/router";
 import { createInstantSearchRouterNext } from "react-instantsearch-hooks-router-nextjs";
 import NavigationUI from "@/components/UI/NavigationUI";
-import { Grid } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
 import HeaderUI from "@/components/UI/HeaderUI";
 import Layout from "@/components/UI/LayoutUI";
 import LayoutUI from "@/components/UI/LayoutUI";
 import Footer from "@/components/UI/Footer";
+import ButtonUI from "@/components/UI/ButtonUI";
 
 const searchClient = algoliasearch(
   "QXZP1BIGWI",
@@ -29,32 +44,49 @@ const searchClient = algoliasearch(
 
 function Hit({ hit }) {
   return (
-    <article>
-      <img src={hit.image} alt={hit.product_name} />
-      <p>{hit.category_name}</p>
-      <p>{hit.product_name}</p>
-      <h1>
-        <Highlight attribute="name" hit={hit} />
-      </h1>
-      <p>${hit.price}</p>
-    </article>
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={hit.image}
+          alt={hit.product_name}
+        />
+        <CardContent>
+          <CardHeader title={hit.product_name} subheader={hit.category_name} />
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Typography variant="body.secondary" color="primary">
+          ${hit.price}
+        </Typography>
+      </CardActions>
+    </Card>
   );
 }
 
 const transformItems = (items: any[]) => {
   return items.map((item) => ({
     ...item,
-    label: item.label.toUpperCase(),
+    count: ` ${item.count} item(s)`,
+    label: " " + item.label.toUpperCase(),
   }));
 };
 
 export default function SearchPage({ serverState, serverUrl }) {
+  let [searchQuery, setSearchQuery] = React.useState(null);
+  let searchRef = React.useRef("");
+
+  const handleSearch = () => {
+    setSearchQuery(searchRef.current.value);
+  };
+
   return (
     <>
       <InstantSearchSSRProvider {...serverState}>
         <InstantSearch
           searchClient={searchClient}
-          indexName="bazaar_index"
+          indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME + ""}
           routing={{
             router: createInstantSearchRouterNext({
               singletonRouter,
@@ -65,8 +97,15 @@ export default function SearchPage({ serverState, serverUrl }) {
           <HeaderUI />
           <LayoutUI>
             <Grid container spacing={2}>
-              <Grid item md={12}>
-                <SearchBox />
+              <Configure query={searchRef.current.value} />
+              <Grid item md={8} xs={8}>
+                {/* <SearchBox /> */}
+                <TextField sx={{ ml: 1 }} inputRef={searchRef} fullWidth />
+              </Grid>
+              <Grid item md={4} xs={4}>
+                <IconButton onClick={handleSearch}>
+                  <SearchIcon />
+                </IconButton>
               </Grid>
               <Grid item md={4} xs={12}>
                 <DynamicWidgets>
@@ -75,7 +114,6 @@ export default function SearchPage({ serverState, serverUrl }) {
                   />
                   <RefinementList
                     attribute="category_name"
-                    searchable={true}
                     searchablePlaceholder="Search categories"
                     transformItems={transformItems}
                   />
