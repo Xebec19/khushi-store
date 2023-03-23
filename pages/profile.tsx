@@ -1,9 +1,19 @@
+import React from "react";
 import Head from "next/head";
 import NavigationUI from "@/components/UI/NavigationUI";
 import Register from "@/components/Authentication/Register";
 import Layout from "@/components/UI/LayoutUI";
 import Login from "@/components/Authentication/Login";
-import Dashboard from "@/components/User/Dashboard";
+
+const AuthCard = () => {
+  let [showLogin, setShowLogin] = React.useState(true);
+
+  if (showLogin) {
+    return <Login setShowLogin={setShowLogin} />;
+  } else {
+    return <Register setShowLogin={setShowLogin} />;
+  }
+};
 
 export default function Profile() {
   return (
@@ -16,7 +26,7 @@ export default function Profile() {
       </Head>
       <Layout>
         {/* <Register /> */}
-        <Login />
+        <AuthCard />
         {/* <Dashboard /> */}
       </Layout>
       <NavigationUI />

@@ -10,6 +10,7 @@ import {
   HierarchicalMenu,
   useNumericMenu,
   DynamicWidgets,
+  useRefinementList,
   SearchBox,
   useSearchBox,
   Configure,
@@ -22,6 +23,9 @@ import singletonRouter from "next/router";
 import { createInstantSearchRouterNext } from "react-instantsearch-hooks-router-nextjs";
 import NavigationUI from "@/components/UI/NavigationUI";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Card,
   CardActionArea,
@@ -29,17 +33,23 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
+  Checkbox,
   Grid,
   IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
   TextField,
   Typography,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import HeaderUI from "@/components/UI/HeaderUI";
 import Layout from "@/components/UI/LayoutUI";
 import LayoutUI from "@/components/UI/LayoutUI";
 import Footer from "@/components/UI/Footer";
 import ButtonUI from "@/components/UI/ButtonUI";
-import { AccountCircle } from "@mui/icons-material";
+import { AccountCircle, Category } from "@mui/icons-material";
 
 const searchClient = algoliasearch(
   "QXZP1BIGWI",
@@ -51,13 +61,44 @@ const PriceFilter = () => {
     attribute: "price",
     items: [
       { label: "All" },
-      { label: "Less than 500$", end: 500 },
-      { label: "Between 500$ - 1000$", start: 500, end: 1000 },
-      { label: "More than 1000$", start: 1000 },
+      { label: "Less than 200$", end: 200 },
+      { label: "Between 200$ - 400$", start: 200, end: 400 },
+      { label: "More than 400$", start: 400 },
     ],
   });
 
-  return <>{items.map((rec) => rec.label)}</>;
+  return (
+    <Accordion sx={{ ml: 1 }}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panella-content"
+        id="panella-header"
+      >
+        <Typography>Price Filter</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <List>
+          {items.map((rec, index) => (
+            <ListItem
+              key={index}
+              secondaryAction={
+                <Checkbox
+                  edge="start"
+                  checked={rec.isRefined}
+                  disableRipple
+                  inputProps={{ "aria-labelledby": rec.label }}
+                  onClick={refine.bind(null, rec.value)}
+                />
+              }
+              disablePadding
+            >
+              <ListItemText id={index} primary={rec.label} />
+            </ListItem>
+          ))}
+        </List>
+      </AccordionDetails>
+    </Accordion>
+  );
 };
 
 function Hit({ hit }) {
@@ -83,12 +124,43 @@ function Hit({ hit }) {
   );
 }
 
-const transformItems = (items: any[]) => {
-  return items.map((item) => ({
-    ...item,
-    count: ` ${item.count} item(s)`,
-    label: " " + item.label.toUpperCase(),
-  }));
+const CategoryFilter = () => {
+  let { items, refine } = useRefinementList({
+    attribute: "category_name",
+  });
+
+  return (
+    <Accordion sx={{ ml: 1 }}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panella-content"
+        id="panella-header"
+      >
+        <Typography>Category</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <List>
+          {items.map((item, index) => (
+            <ListItem
+              key={index}
+              secondaryAction={
+                <Checkbox
+                  edge="start"
+                  checked={item.isRefined}
+                  disableRipple
+                  inputProps={{ "aria-labelledby": item.label }}
+                  onClick={refine.bind(null, item.value)}
+                />
+              }
+              disablePadding
+            >
+              <ListItemText id={index} primary={item.label} />
+            </ListItem>
+          ))}
+        </List>
+      </AccordionDetails>
+    </Accordion>
+  );
 };
 
 export default function SearchPage({ serverState, serverUrl }) {
@@ -134,23 +206,14 @@ export default function SearchPage({ serverState, serverUrl }) {
                   variant="standard"
                   inputRef={searchRef}
                   sx={{ ml: 1 }}
-                />
-                <SearchIcon
-                  sx={{ color: "action.active", ml: 1, my: 0.5 }}
-                  onClick={handleSearch}
+                  onChange={handleSearch}
                 />
               </Grid>
               <Grid item md={4} xs={12}>
-                <DynamicWidgets>
-                  <HierarchicalMenu
-                    attributes={["hierarchical.lvl0", "hierarchical.lvl1"]}
-                  />
-                  <RefinementList
-                    attribute="category_name"
-                    searchablePlaceholder="Search categories"
-                    transformItems={transformItems}
-                  />
-                </DynamicWidgets>
+                <HierarchicalMenu
+                  attributes={["hierarchical.lvl0", "hierarchical.lvl1"]}
+                />
+                <CategoryFilter />
                 <PriceFilter />
               </Grid>
               <Grid item md={8} xs={12}>
