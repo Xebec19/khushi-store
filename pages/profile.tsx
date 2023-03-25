@@ -25,9 +25,7 @@ export default function Profile() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {/* <Register /> */}
         <AuthCard />
-        {/* <Dashboard /> */}
       </Layout>
       <NavigationUI />
     </>
