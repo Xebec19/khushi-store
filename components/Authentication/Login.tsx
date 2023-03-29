@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
 import classes from "../../styles/authentication.module.css";
 import React from "react";
 import { red } from "@mui/material/colors";
@@ -16,6 +17,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { login } from "@/store/auth";
 
 const validationSchema = yup.object({
   email: yup
@@ -33,6 +35,7 @@ const validationSchema = yup.object({
  * @param {Object} setShowLogin func to update whether to show login or register card
  */
 const Login = ({ setShowLogin }) => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -40,7 +43,7 @@ const Login = ({ setShowLogin }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      dispatch(login(values));
     },
   });
 
